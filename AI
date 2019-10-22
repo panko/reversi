@@ -7,20 +7,63 @@ namespace Reversi
     {
         static void Main(string[] args)
         {
+            String text = "";
+            String[] token;
+            char[][] tábla = new char[10][];
+           
 
+            for(int i = 0; i < 10; i++)
+            {
+               
+
+                tábla[i] = new char[10];
+                for ( int j = 0; j < 10; j++)
+                {
+                    if (i == 0 || i == 9 || j == 0 || j == 9) tábla[i][j] = '-';
+                    else tábla[i][j] = '0';
+
+                }
+            }
+
+            tábla[4][4] = 'W';
+            tábla[4][5] = 'B';
+            tábla[5][4] = 'B';
+            tábla[5][5] = 'W';
+
+            Node jatek1 = new Node(tábla);
+            while (true)
+            {
+                jatek1.makemove_AI(jatek1.Best_position().x, jatek1.Best_position().y);
+                Console.WriteLine("A Player köre jön");
+
+                text = Console.ReadLine();
+                if (text.Equals("exit")) break;   
+                else
+                {
+                    token = text.Split(' ');
+                    jatek1.makemove_Player(Int32.Parse(token[0]), Int32.Parse(token[1]));
+                    Console.WriteLine("Az AI köre jön");
+                }
+                   
+                
+            }
         }
     }
 
     public class Koordinate
     {
-        int x;
-        int y;
+        public int x;
+        public int y;
 
         public Koordinate(int x, int y)
         {
             this.x = x;
             this.y = y;
    
+        }
+        public override string ToString()
+        {
+            return x + "    " + y;
         }
 
     }
@@ -29,244 +72,583 @@ namespace Reversi
     {
         public char[][] tabla;      //játéktábla
         
-
         public Node(char[][] tabla)
         {
             this.tabla = tabla;
         }
+               
+        public void kiir() {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Console.Write(tabla[i][j]+" ");
+
+                }
+                Console.WriteLine();
+            }
+        }       
+
+        public void makemove_AI(int x, int y)
+        {
+            List<Koordinate> flipback_list_final = new List<Koordinate>();
+            flipback_list_final = Flip_pieces_B(x, y);
+            foreach (Koordinate n in flipback_list_final)
+            {
+                set_piece_W(n.x, n.y);
+            }
+            set_piece_W(x, y);
+            kiir();
+        }
+        public void makemove_Player(int x, int y)
+        {
+            List<Koordinate> flipback_list_final = new List<Koordinate>();
+            flipback_list_final = Flip_pieces_W(x, y);
+            foreach (Koordinate n in flipback_list_final)
+            {
+                set_piece_B(n.x, n.y);
+            }
+            set_piece_B(x, y);
+            kiir();
+        }
+
+        public Koordinate Best_position()
+        {
+            List<Koordinate> Valid_moves = new List<Koordinate>();
+            List<Koordinate> flipback_list = new List<Koordinate>();
+            List<Koordinate> bestmove = new List<Koordinate>();
+            int bestscore = 0;
+            Valid_moves = GenerateValidKoordinates_for_AI();
+
+            foreach (Koordinate n in Valid_moves)
+            {
+                Console.WriteLine(n.x + " " + n.y);
+            }
+
+            foreach (Koordinate act in Valid_moves)
+            {
+                
+                flipback_list = Flip_pieces_B(act.x, act.y);
+                if (Calculate_aktual_gamestate() + flipback_list.Count > bestscore)
+                {
+                    bestscore = Calculate_aktual_gamestate() + flipback_list.Count;
+                    bestmove.Clear();
+                    bestmove.Add(act);
+                }
+                if (Calculate_aktual_gamestate() == bestscore)
+                {
+                    bestmove.Add(act);
+                }        
+                foreach (Koordinate n in flipback_list)
+                {
+                    set_piece_B(n.x, n.y);
+                }
+            }
 
 
-        public List<Koordinate> GenerateValidKoordinates() //fehér lépéseinek a generálása
+            if (bestmove.Count > 1)
+            {
+                Random rnd = new Random();
+                return bestmove[rnd.Next(1, bestmove.Count)];
+            }
+            else
+                return bestmove[0];
+        }
+
+        //public void makemove(int x, int y)
+        //{
+        //    tabla[x][y] = 'W';
+        //}
+
+        public List<Koordinate> GenerateValidKoordinates_for_AI() //fehér lépéseinek a generálása
         {
 
             List<Koordinate> Valid_Moves_W = new List<Koordinate>();
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {     //mátrix bejárása
-                for (int j = 0; j < 8; j++)
+                for (int j = 1; j < 8; j++)
                 {
-                    if (tabla[i][j] == '0')//csak az üres mezők jöhetnek szóba
+                   if(tabla[i][j] == '0')
                     {
-
-
-                        if (i == 0)//felső sornál felettes táblamezőket nemkell ellenőrízni
+                        if (tabla[i + 1][j] == 'B' || tabla[i - 1][j] == 'B' || tabla[i][j + 1] == 'B' || tabla[i][j - 1] == 'B' || tabla[i + 1][j + 1] == 'B' || tabla[i + 1][j - 1] == 'B' || tabla[i - 1][j + 1] == 'B' || tabla[i - 1][j + 1] == 'B')
                         {
-                            if (j > 0 && j < 7)
-                            {
-
-                                if (tabla[i][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
-                                    
-                                }
-                                else if (tabla[i][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
-                                }
-                                else if (tabla[i + 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                                }
-                                else if (tabla[i + 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
-                                }
-                                else if (tabla[i + 1][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
-                                }
-                            }
-                            if(j == 0)
-                            {
-                               if (tabla[i][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
-                                }
-                                else if (tabla[i + 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                                }
-                                else if (tabla[i + 1][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
-                                }
-                            }
-                            if (j == 7)
-                            {
-                                if (tabla[i][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
-                                }
-                                else if (tabla[i + 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                                }
-                                else if (tabla[i + 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
-                                }
-                            }
-
-                        }
-
-                        else if (i == 7)//alsó sornál alattas táblamezőket nemkell ellenőrízni
-                        {
-                            if (j > 0 &&  j < 7)
-                            {
-
-                                if (tabla[i][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
-
-                                }
-                                else if (tabla[i][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
-                                }
-                                else if (tabla[i - 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                                }
-                                else if (tabla[i - 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
-                                }
-                                else if (tabla[i - 1][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
-                                }
-                            }
-                            if (j == 0)
-                            {
-                                if (tabla[i][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
-                                }
-                                else if (tabla[i - 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                                }
-                                else if (tabla[i - 1][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
-                                }
-                            }
-                            if (j == 7)
-                            {
-                                if (tabla[i][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
-                                }
-                                else if (tabla[i - 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                                }
-                                else if (tabla[i - 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
-                                }
-                            }
-
-                        }
-
-                       else if(j == 0)
-                        {
-                            if(i>0 && i < 7)
-                            {
-                                if(tabla[i-1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                                }
-                                else if (tabla[i][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i , j + 1));
-                                }
-                                else if(tabla[i + 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                                }
-                                else if (tabla[i + 1][j+1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j+1));
-                                }
-                                else if (tabla[i - 1][j + 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
-                                }
-                            }
-
-                        }
-
-                       else if (j == 7)
-                        {
-                            if (i > 0 && i < 7)
-                            {
-                                if (tabla[i - 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                                }
-                                else if (tabla[i][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
-                                }
-                                else if (tabla[i + 1][j] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                                }
-                                else if (tabla[i + 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
-                                }
-                                else if (tabla[i - 1][j - 1] == 'B')
-                                {
-                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            if(tabla[i+1][j] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i + 1, j));
-                            }
-                            else if (tabla[i - 1][j] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i - 1, j));
-                            }
-                            else if (tabla[i ][j+1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i , j+1));
-                            }
-                            else if (tabla[i][j - 1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i, j - 1));
-                            }
-                            else if (tabla[i+1][j - 1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i+1, j - 1));
-                            }
-                            else if (tabla[i - 1][j - 1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
-                            }
-                            else if (tabla[i + 1][j +1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
-                            }
-                            else if (tabla[i + 1][j + 1] == 'B')
-                            {
-                                Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
-                            }
+                            Valid_Moves_W.Add(new Koordinate(i, j));
                         }
 
                     }
-                }
-
+                 }
             }
 
             return Valid_Moves_W;
         }
 
+
+        public List<Koordinate> Flip_pieces_B(int x, int y)
+        {
+            List<Koordinate> bejart_ut_lista = new List<Koordinate>();
+            List<Koordinate> atvaltott_lista = new List<Koordinate>();
+
+           
+                    //jobbra check
+                    for (int k = 1; k < 9; k++)
+                    {
+                         if (y + k == 9) break;
+                        if (tabla[x][y+k] == 'B') bejart_ut_lista.Add(new Koordinate(x, y+k));
+                        if (tabla[x][y+k] == 'W')
+                        {
+                            if (bejart_ut_lista.Count > 0)
+                            {
+                                foreach (Koordinate act in bejart_ut_lista)
+                                {
+                                    set_piece_W(act.x, act.y);
+                                    atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                                }
+                             
+                            }
+                        }
+                        if (tabla[x][y+k] == '0')
+                        {
+                            bejart_ut_lista.Clear();
+                            break;
+                        }
+
+                    }
+
+                    bejart_ut_lista.Clear();
+
+            //balra check
+            for (int k = 1; k < 9; k++)
+            {
+                if (y - k == 0) break;
+                if (tabla[x][y - k] == 'B') bejart_ut_lista.Add(new Koordinate(x, y - k));
+                if (tabla[x][y - k] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x][y - k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //fel check
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0) break;
+                if (tabla[x-k][y] == 'B') bejart_ut_lista.Add(new Koordinate(x-k, y));
+                if (tabla[x-k][y] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x-k][y] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //le check
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 0) break;
+                if (tabla[x + k][y] == 'B') bejart_ut_lista.Add(new Koordinate(x + k, y));
+                if (tabla[x + k][y] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check fel jobbra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0 || y+k == 9) break;
+                if (tabla[x - k][y+k] == 'B') bejart_ut_lista.Add(new Koordinate(x-k, y+k));
+                if (tabla[x - k][y+k] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x - k][y+k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+
+            //átló check le jobbra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 9 || y + k == 9) break;
+                if (tabla[x + k][y + k] == 'B') bejart_ut_lista.Add(new Koordinate(x + k, y + k));
+                if (tabla[x + k][y + k] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y + k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check le balra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 9 || y - k == 0) break;
+                if (tabla[x + k][y - k] == 'B') bejart_ut_lista.Add(new Koordinate(x + k, y- k));
+                if (tabla[x + k][y - k] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y- k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check fel balra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0 || y - k == 0) break;
+                if (tabla[x - k][y - k] == 'B') bejart_ut_lista.Add(new Koordinate(x - k, y - k));
+                if (tabla[x - k][y - k] == 'W')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x - k][y - k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+
+            return atvaltott_lista;
+        }
+
+
+        public List<Koordinate> Flip_pieces_W(int x, int y)
+        {
+            List<Koordinate> bejart_ut_lista = new List<Koordinate>();
+            List<Koordinate> atvaltott_lista = new List<Koordinate>();
+
+
+            //jobbra check
+            for (int k = 1; k < 9; k++)
+            {
+                if (y + k == 9) break;
+                if (tabla[x][y + k] == 'W') bejart_ut_lista.Add(new Koordinate(x, y + k));
+                if (tabla[x][y + k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x][y + k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //balra check
+            for (int k = 1; k < 9; k++)
+            {
+                if (y - k == 0) break;
+                if (tabla[x][y - k] == 'W') bejart_ut_lista.Add(new Koordinate(x, y - k));
+                if (tabla[x][y - k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x][y - k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //fel check
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0) break;
+                if (tabla[x - k][y] == 'W') bejart_ut_lista.Add(new Koordinate(x - k, y));
+                if (tabla[x - k][y] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x - k][y] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //le check
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 0) break;
+                if (tabla[x + k][y] == 'W') bejart_ut_lista.Add(new Koordinate(x + k, y));
+                if (tabla[x + k][y] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check fel jobbra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0 || y + k == 9) break;
+                if (tabla[x - k][y + k] == 'W') bejart_ut_lista.Add(new Koordinate(x - k, y + k));
+                if (tabla[x - k][y + k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x - k][y + k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+
+            //átló check le jobbra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 9 || y + k == 9) break;
+                if (tabla[x + k][y + k] == 'W') bejart_ut_lista.Add(new Koordinate(x + k, y + k));
+                if (tabla[x + k][y + k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y + k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check le balra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x + k == 9 || y - k == 0) break;
+                if (tabla[x + k][y - k] == 'W') bejart_ut_lista.Add(new Koordinate(x + k, y - k));
+                if (tabla[x + k][y - k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x + k][y - k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+            //átló check fel balra
+
+            for (int k = 1; k < 9; k++)
+            {
+                if (x - k == 0 || y - k == 0) break;
+                if (tabla[x - k][y - k] == 'W') bejart_ut_lista.Add(new Koordinate(x - k, y - k));
+                if (tabla[x - k][y - k] == 'B')
+                {
+                    if (bejart_ut_lista.Count > 0)
+                    {
+                        foreach (Koordinate act in bejart_ut_lista)
+                        {
+                            set_piece_W(act.x, act.y);
+                            atvaltott_lista.Add(new Koordinate(act.x, act.y));
+                        }
+
+                    }
+                }
+                if (tabla[x - k][y - k] == '0')
+                {
+                    bejart_ut_lista.Clear();
+                    break;
+                }
+
+            }
+
+            bejart_ut_lista.Clear();
+
+
+            return atvaltott_lista;
+        }
 
         public int Calculate_aktual_gamestate()     //Mivel a fehérrrel van a gép ezért visszatéríti a W-Bt
         {
@@ -304,3 +686,4 @@ namespace Reversi
 
     }
 }
+
