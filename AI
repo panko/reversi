@@ -1,0 +1,306 @@
+using System;
+using System.Collections.Generic;
+
+namespace Reversi
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+        }
+    }
+
+    public class Koordinate
+    {
+        int x;
+        int y;
+
+        public Koordinate(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+   
+        }
+
+    }
+
+    class Node
+    {
+        public char[][] tabla;      //játéktábla
+        
+
+        public Node(char[][] tabla)
+        {
+            this.tabla = tabla;
+        }
+
+
+        public List<Koordinate> GenerateValidKoordinates() //fehér lépéseinek a generálása
+        {
+
+            List<Koordinate> Valid_Moves_W = new List<Koordinate>();
+            for (int i = 0; i < 8; i++)
+            {     //mátrix bejárása
+                for (int j = 0; j < 8; j++)
+                {
+                    if (tabla[i][j] == '0')//csak az üres mezők jöhetnek szóba
+                    {
+
+
+                        if (i == 0)//felső sornál felettes táblamezőket nemkell ellenőrízni
+                        {
+                            if (j > 0 && j < 7)
+                            {
+
+                                if (tabla[i][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
+                                    
+                                }
+                                else if (tabla[i][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
+                                }
+                                else if (tabla[i + 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                                }
+                                else if (tabla[i + 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
+                                }
+                                else if (tabla[i + 1][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
+                                }
+                            }
+                            if(j == 0)
+                            {
+                               if (tabla[i][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
+                                }
+                                else if (tabla[i + 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                                }
+                                else if (tabla[i + 1][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
+                                }
+                            }
+                            if (j == 7)
+                            {
+                                if (tabla[i][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
+                                }
+                                else if (tabla[i + 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                                }
+                                else if (tabla[i + 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
+                                }
+                            }
+
+                        }
+
+                        else if (i == 7)//alsó sornál alattas táblamezőket nemkell ellenőrízni
+                        {
+                            if (j > 0 &&  j < 7)
+                            {
+
+                                if (tabla[i][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
+
+                                }
+                                else if (tabla[i][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
+                                }
+                                else if (tabla[i - 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                                }
+                                else if (tabla[i - 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
+                                }
+                                else if (tabla[i - 1][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
+                                }
+                            }
+                            if (j == 0)
+                            {
+                                if (tabla[i][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j + 1));
+                                }
+                                else if (tabla[i - 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                                }
+                                else if (tabla[i - 1][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
+                                }
+                            }
+                            if (j == 7)
+                            {
+                                if (tabla[i][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
+                                }
+                                else if (tabla[i - 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                                }
+                                else if (tabla[i - 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
+                                }
+                            }
+
+                        }
+
+                       else if(j == 0)
+                        {
+                            if(i>0 && i < 7)
+                            {
+                                if(tabla[i-1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                                }
+                                else if (tabla[i][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i , j + 1));
+                                }
+                                else if(tabla[i + 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                                }
+                                else if (tabla[i + 1][j+1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j+1));
+                                }
+                                else if (tabla[i - 1][j + 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j + 1));
+                                }
+                            }
+
+                        }
+
+                       else if (j == 7)
+                        {
+                            if (i > 0 && i < 7)
+                            {
+                                if (tabla[i - 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                                }
+                                else if (tabla[i][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i, j - 1));
+                                }
+                                else if (tabla[i + 1][j] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                                }
+                                else if (tabla[i + 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i + 1, j - 1));
+                                }
+                                else if (tabla[i - 1][j - 1] == 'B')
+                                {
+                                    Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            if(tabla[i+1][j] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i + 1, j));
+                            }
+                            else if (tabla[i - 1][j] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i - 1, j));
+                            }
+                            else if (tabla[i ][j+1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i , j+1));
+                            }
+                            else if (tabla[i][j - 1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i, j - 1));
+                            }
+                            else if (tabla[i+1][j - 1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i+1, j - 1));
+                            }
+                            else if (tabla[i - 1][j - 1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i - 1, j - 1));
+                            }
+                            else if (tabla[i + 1][j +1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
+                            }
+                            else if (tabla[i + 1][j + 1] == 'B')
+                            {
+                                Valid_Moves_W.Add(new Koordinate(i + 1, j + 1));
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
+            return Valid_Moves_W;
+        }
+
+
+        public int Calculate_aktual_gamestate()     //Mivel a fehérrrel van a gép ezért visszatéríti a W-Bt
+        {
+            int B_points = 0;
+            int W_points = 0;
+
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    if (tabla[i][j] == 'B') B_points++;
+                    if (tabla[i][j] == 'W') W_points++;
+                }
+
+            }
+            return W_points - B_points;
+        }
+
+
+        public void set_piece_W(int set_x, int set_y)
+        {
+            this.tabla[set_x][set_y] = 'W';
+            
+        }
+        public void set_piece_B(int set_x, int set_y)
+        {
+            this.tabla[set_x][set_y] = 'B';
+
+        }
+        public void set_piece_clear(int set_x, int set_y)
+        {
+            this.tabla[set_x][set_y] = '0';
+
+        }
+
+    }
+}
