@@ -6,13 +6,9 @@ using System.Diagnostics;
 namespace Reversi
 {
 
-
-
-    class Program
+    class Ai
     {
-
-
-        static void Main(string[] args)
+        public Ai()
         {
             String text = "";
             String[] token;
@@ -45,7 +41,7 @@ namespace Reversi
                 sw.Start();
                 makemove_AI(Best_position(jatek1).x, Best_position(jatek1).y, jatek1);
                 Console.WriteLine("A Player köre jön");
-                Console.WriteLine("A fekete babuk szama: " + calculate_scores(jatek1)[0] + "   A feér bábuk száma: " + calculate_scores(jatek1)[1]+"Elapsed time:"+sw.Elapsed);
+                Console.WriteLine("A fekete babuk szama: " + calculate_scores(jatek1)[0] + "   A feér bábuk száma: " + calculate_scores(jatek1)[1] + "Elapsed time:" + sw.Elapsed);
 
                 text = Console.ReadLine();
                 if (text.Equals("exit")) break;
