@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 
 using Console = System.Diagnostics.Debug;
 
-namespace Reversi
+namespace Reversi.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Game : Window
+    public partial class asdGameView : UserControl
     {
         enum Disk
         {
@@ -31,7 +31,7 @@ namespace Reversi
 
         private Disk[,] disks = new Disk[8, 8];
 
-        public Game()
+        public asdGameView()
         {
             InitializeComponent();
             InitGame();
@@ -130,3 +130,4 @@ namespace Reversi
 
     }
 }
+*/
