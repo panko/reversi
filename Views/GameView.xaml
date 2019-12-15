@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Reversi.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <StackPanel Background="Black">
+        <Canvas x:Name="canvas" Width="400" Height="400" Margin="30" Background="Green"/>
+    </StackPanel>
 </UserControl>

@@ -18,9 +18,59 @@ namespace Reversi.Views
     /// </summary>
     public partial class MenuView : UserControl
     {
-        public MenuView()
+        MainWindow mw;
+        public MenuView(MainWindow mw)
         {
+            this.mw = mw;
             InitializeComponent();
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void vspc_Checked(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = true;
+        }
+        private void vspc_Unchecked(object sender, RoutedEventArgs e)
+        {
+            play.IsEnabled = false;
+        }
+
+        private void vshuman_Checked(object sender, RoutedEventArgs e)
+        {
+            sp1.Visibility = Visibility.Visible;
+            sp2.Visibility = Visibility.Visible;
+        }
+
+        private void vshuman_Unchecked(object sender, RoutedEventArgs e)
+        {
+            sp1.Visibility = Visibility.Hidden;
+            sp2.Visibility = Visibility.Hidden;
+            tb1.Clear();
+            tb2.Clear();
+        }
+
+        private void tb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(tb1.Text) || String.IsNullOrWhiteSpace(tb2.Text))
+            {
+                play.IsEnabled = false;
+            }
+            else
+            {
+                play.IsEnabled = true;
+            }
+        }
+
+        private void play_Click(object sender, RoutedEventArgs e)
+        {
+            if (vspc.IsChecked.Value)
+            {
+                mw.DataContext = new GameView(mw);
+            }
         }
     }
 }

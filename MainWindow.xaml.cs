@@ -21,7 +21,7 @@ namespace Reversi
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MenuView();
+            DataContext = new MenuView(this);
         }
 
 

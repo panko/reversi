@@ -1,3 +1,4 @@
 ﻿bin
 obj
 *.user
+/.vs/Reversi

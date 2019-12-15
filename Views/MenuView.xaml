@@ -5,8 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Reversi.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Purple">
-    <Grid>
-            
+             d:DesignHeight="600" d:DesignWidth="800" Background="Purple">
+    <StackPanel>
+        <Label Content="Reversi" FontSize="66" Margin="10" HorizontalAlignment="Center" FontFamily="Impact"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <RibbonRadioButton x:Name="vspc" MouseOverBackground="LightBlue" CheckedBackground="Gray" Background="LightGray" Margin="30" Label="vs Computer" Grid.Column="1" Grid.Row="0" Checked="vspc_Checked" Unchecked="vspc_Unchecked"/>
+            <RibbonRadioButton x:Name="vshuman" MouseOverBackground="LightBlue" CheckedBackground="Gray" Background="LightGray" Margin="30" Label="vs Human" Grid.Column="1" Grid.Row="1" Unchecked="vshuman_Unchecked" Checked="vshuman_Checked"/>
+            <Button x:Name="leaderboard"  Margin="30" Content="Leaderboard" Grid.Column="1" Grid.Row="2"/>
+            <Button x:Name="exit"  Margin="30" Content="Exit" Grid.Column="1" Grid.Row="3" Click="exit_Click"/>
+            <Button x:Name="play"  Margin="10" Content="Play" Grid.Column="2" Grid.Row="4" Height="60" IsEnabled="False" Click="play_Click"/>
+
+            <StackPanel x:Name="sp1" Visibility="Hidden" Grid.Column="2" Grid.Row="1">
+                <Label Content="Player 1 name:"/>
+                <TextBox x:Name="tb1" TextChanged="tb_TextChanged"/>
+            </StackPanel>
+
+            <StackPanel x:Name="sp2" Visibility="Hidden" Grid.Column="2" Grid.Row="2">
+                <Label Content="Player 2 name:"/>
+                <TextBox x:Name="tb2" TextChanged="tb_TextChanged"/>
+            </StackPanel>
+
     </Grid>
+
+
+
+    </StackPanel>
 </UserControl>
