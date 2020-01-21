@@ -18,10 +18,10 @@ namespace Reversi
         public void ResetBoard()
         {
             matrix = new Tile[8, 8];
-            matrix[3, 3] = new Tile(true, Tile_type.Black);
-            matrix[4, 3] = new Tile(false, Tile_type.White);
-            matrix[3, 4] = new Tile(false, Tile_type.White);
-            matrix[4, 4] = new Tile(true, Tile_type.Black);
+            matrix[3, 3] = new Tile(true);
+            matrix[4, 3] = new Tile(false);
+            matrix[3, 4] = new Tile(false);
+            matrix[4, 4] = new Tile(true);
         }
     }
 }

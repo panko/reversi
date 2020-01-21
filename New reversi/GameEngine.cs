@@ -12,6 +12,7 @@ namespace Reversi
         RuleEngine ruleBook;
         Board board;
 
+        public bool is_against_AI = false;
         public bool blackTurn = true;
         public int blackScore;
         public int whiteScore;
@@ -34,7 +35,7 @@ namespace Reversi
 
         public bool hasPossibleMove(bool black)
         {
-            return ruleBook.PossibleMoves(board, new Tile(black, Tile_type.Empty)).Count > 0;
+            return ruleBook.PossibleMoves(board, new Tile(black)).Count > 0;
         }
 
 
@@ -45,7 +46,7 @@ namespace Reversi
 
         public Board PlaceTile(int x, int y)
         {
-            Tile tile = new Tile(blackTurn, Tile_type.Empty);
+            Tile tile = new Tile(blackTurn);
 
             if (ruleBook.CanPlaceTile(board, tile, x, y))
             {
@@ -81,6 +82,7 @@ namespace Reversi
                 }
             }
             calcScore();
+
            // a.save(board, blackTurn);
             // Return the currect board.
             return board;
@@ -108,6 +110,31 @@ namespace Reversi
                     }
                 }
             }
+        }
+
+        private int[] calcScore_AI()
+        {
+            blackScore = 0;
+            whiteScore = 0;
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board.matrix[i, j] is Tile)
+                    {
+                        if (board.matrix[i, j].isBlack)
+                        {
+                            blackScore++;
+                        }
+                        else
+                        {
+                            whiteScore++;
+                        }
+                    }
+                }
+            }
+            return new int[2] { blackScore, whiteScore };
         }
     }
 }
