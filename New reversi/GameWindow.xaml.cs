@@ -27,7 +27,7 @@ namespace Reversi
         {
             InitializeComponent();
 
-            updateBoard();
+            updateBoard();          
 
         }
 
@@ -40,6 +40,9 @@ namespace Reversi
 
             gameEngine.PlaceTile(row, col);
             updateBoard();
+            gameEngine.AI_move();
+            updateBoard();
+
         }
 
         //private void Disk_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)

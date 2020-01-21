@@ -43,6 +43,8 @@ namespace Reversi
 
        private void Vs_hm_clicked(object sender, RoutedEventArgs e)
         {
+            GameWindow gv = new GameWindow();
+            gv.Show();
             this.Close();
         }
     } 
