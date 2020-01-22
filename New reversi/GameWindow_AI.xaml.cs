@@ -23,13 +23,13 @@ namespace Reversi
     public partial class GameWindow_AI : Window
     {
 
-
         GameEngine gameEngine = new GameEngine();
         DispatcherTimer tB = new DispatcherTimer();
         DispatcherTimer tW = new DispatcherTimer();
         Stopwatch sw_B = new Stopwatch();
         Stopwatch sw_W = new Stopwatch();
         String currentTime;
+        bool _isFinished = false;
 
         public GameWindow_AI()
         {
@@ -81,21 +81,6 @@ namespace Reversi
                 updateBoard();
             }
         }
-
-        //private void Disk_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    Ellipse sent = (Ellipse)sender;
-        //    //var isItHovered = Boolean.parseBoolean();
-        //    if (e.NewValue.Equals(true))
-        //    {
-        //        sent.Stroke = System.Windows.Media.Brushes.DarkSlateGray;
-        //    }
-        //    else
-        //    {
-        //        sent.Stroke = System.Windows.Media.Brushes.Transparent;
-        //    }
-        //}
-
         private void updateBoard()
         {
             grid.Children.Clear();
@@ -146,9 +131,15 @@ namespace Reversi
                 {
                     MessageBox.Show("White won! Game will now reset.");
                 }
-                gameEngine.resetGame();
-                updateBoard();
+                sw_B.Stop();
+                sw_W.Stop();
+                _isFinished = true;
             }
+            if (_isFinished)
+            {
+                this.Close();
+            }
+
         }
 
         private Color getColor(bool a)
@@ -162,5 +153,18 @@ namespace Reversi
         }
     }
 
-}       
+}
 
+//private void Disk_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+//{
+//    Ellipse sent = (Ellipse)sender;
+//    //var isItHovered = Boolean.parseBoolean();
+//    if (e.NewValue.Equals(true))
+//    {
+//        sent.Stroke = System.Windows.Media.Brushes.DarkSlateGray;
+//    }
+//    else
+//    {
+//        sent.Stroke = System.Windows.Media.Brushes.Transparent;
+//    }
+//}
