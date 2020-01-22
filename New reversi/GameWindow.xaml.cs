@@ -40,24 +40,7 @@ namespace Reversi
 
             gameEngine.PlaceTile(row, col);
             updateBoard();
-            gameEngine.AI_move();
-            updateBoard();
-
         }
-
-        //private void Disk_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    Ellipse sent = (Ellipse)sender;
-        //    //var isItHovered = Boolean.parseBoolean();
-        //    if (e.NewValue.Equals(true))
-        //    {
-        //        sent.Stroke = System.Windows.Media.Brushes.DarkSlateGray;
-        //    }
-        //    else
-        //    {
-        //        sent.Stroke = System.Windows.Media.Brushes.Transparent;
-        //    }
-        //}
 
         private void updateBoard()
         {

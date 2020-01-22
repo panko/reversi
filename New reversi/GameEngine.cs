@@ -99,22 +99,21 @@ namespace Reversi
                 AI_board = null;
             }
 
-            PlaceTile(bestmove_AI[0], bestmove_AI[1]);       
-
+            PlaceTile(bestmove_AI[0], bestmove_AI[1]);    
         }
 
 
-        public Board PlaceTile(int x, int y)
+        public bool PlaceTile(int x, int y)
         {
             Tile tile = new Tile(blackTurn);
+            bool movementDone = false;
 
             if (ruleBook.CanPlaceTile(board, tile, x, y))
             {
                 // Place the new tile when we know it's a valid move.
                 board.matrix[x, y] = tile;
-
-                // Flip bool to indicate next player's turn.
-                blackTurn = !blackTurn;
+                movementDone = true;
+                // Flip bool to indicate next player's turn.               
 
                 // Flip tiles in all directions.
                 foreach (int[] pos in ruleBook.RELATIVEPOSITION)
@@ -143,9 +142,14 @@ namespace Reversi
             }
             calcScore();
 
-           // a.save(board, blackTurn);
+            // a.save(board, blackTurn);
             // Return the currect board.
-           return board;
+            if (movementDone)
+            {
+                blackTurn = !blackTurn;
+                return true;
+            }
+            return false;
         }
 
         private Board makeBoard(Board _board)

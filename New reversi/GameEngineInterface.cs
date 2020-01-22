@@ -9,7 +9,7 @@ namespace Reversi
      public interface GameEngineInterface
         {
             Board getBoard();
-            Board PlaceTile(int x, int y);
+            bool PlaceTile(int x, int y);
         }
     
 }

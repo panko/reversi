@@ -30,7 +30,7 @@ namespace Reversi
         
         private void Vs_cmp_clicked(object sender, RoutedEventArgs e)
         {
-            GameWindow gv = new GameWindow();
+            GameWindow_AI gv = new GameWindow_AI();
             gv.Show();
             this.Close();
 
