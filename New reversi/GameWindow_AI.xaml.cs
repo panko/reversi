@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Reversi
 {
@@ -20,16 +23,45 @@ namespace Reversi
     public partial class GameWindow_AI : Window
     {
 
-        GameEngine gameEngine = new GameEngine();
 
+        GameEngine gameEngine = new GameEngine();
+        DispatcherTimer tB = new DispatcherTimer();
+        DispatcherTimer tW = new DispatcherTimer();
+        Stopwatch sw_B = new Stopwatch();
+        Stopwatch sw_W = new Stopwatch();
+        String currentTime;
 
         public GameWindow_AI()
         {
             InitializeComponent();
-
             updateBoard();
+            text_black.Text = "Black Ellapsed time";
+            text_white.Text = "White Ellapsed time";
+            tB.Interval = TimeSpan.FromMilliseconds(1);
+            tW.Interval = TimeSpan.FromMilliseconds(1);
+            tB.Tick += timer_Tick_B;
+            tW.Tick += timer_Tick_W;
+            tB.Start();
+            tW.Start();
+            sw_B.Start();
 
         }
+
+         void timer_Tick_W(object sender, EventArgs e)
+        {
+            TimeSpan ts = sw_W.Elapsed;
+            currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            timer_W.Text = currentTime;
+        }
+        void timer_Tick_B(object sender, EventArgs e)
+        {
+            TimeSpan ts = sw_B.Elapsed;
+            currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            timer_B.Text = currentTime;
+        }
+
 
         private void CellClicker(object sender, RoutedEventArgs e)
         {
@@ -40,8 +72,12 @@ namespace Reversi
 
             if(gameEngine.PlaceTile(row, col))
             {
+                sw_B.Stop();
+                sw_W.Start();
                 updateBoard();
                 gameEngine.AI_move();
+                sw_W.Stop();
+                sw_B.Start();
                 updateBoard();
             }
         }
@@ -120,6 +156,10 @@ namespace Reversi
             return a ? Colors.Black : Colors.White;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }       
