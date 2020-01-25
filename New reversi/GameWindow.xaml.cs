@@ -64,7 +64,11 @@ namespace Reversi
             this.p2_lastname = ln;
 
         }
-
+        /// <summary>
+        /// Calculates the ellapsed time for black and white player.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void timer_Tick_W(object sender, EventArgs e)
         {
             TimeSpan ts = sw_W.Elapsed;
@@ -80,7 +84,12 @@ namespace Reversi
             timer_B.Text = currentTime;
         }
 
-
+        /// <summary>
+        /// Handles the interaction with the matrix cells.
+        /// Starts and stops the current player's stopwatch.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CellClicker(object sender, RoutedEventArgs e)
         {
             
@@ -104,6 +113,9 @@ namespace Reversi
             updateBoard();            
         }
 
+        /// <summary>
+        /// Updates the UI from the board.matrix, if the match has ended it adds the two player to the database.
+        /// </summary>
         private void updateBoard()
         {
             grid.Children.Clear();

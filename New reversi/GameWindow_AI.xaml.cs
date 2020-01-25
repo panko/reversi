@@ -35,6 +35,9 @@ namespace Reversi
         {
             InitializeComponent();
             updateBoard();
+            if (gameEngine.blackTurn == false)
+                gameEngine.AI_move();
+            updateBoard();
             text_black.Text = "Black Ellapsed time";
             text_white.Text = "White Ellapsed time";
             tB.Interval = TimeSpan.FromMilliseconds(1);
@@ -47,7 +50,12 @@ namespace Reversi
 
         }
 
-         void timer_Tick_W(object sender, EventArgs e)
+        /// <summary>
+        /// Calculate the ellapsed time for black and white player.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void timer_Tick_W(object sender, EventArgs e)
         {
             TimeSpan ts = sw_W.Elapsed;
             currentTime = String.Format("{0:00}:{1:00}:{2:00}",
@@ -62,10 +70,14 @@ namespace Reversi
             timer_B.Text = currentTime;
         }
 
-
+        /// <summary>
+        /// Handles the interaction with the matrix cells.
+        /// Starts and stops the current player's stopwatch.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CellClicker(object sender, RoutedEventArgs e)
         {
-
             Button button = (Button)sender;
             int row = Grid.GetRow(button);
             int col = Grid.GetColumn(button);
@@ -81,6 +93,11 @@ namespace Reversi
                 updateBoard();
             }
         }
+
+
+        /// <summary>
+        /// Updates the UI from the current board.matrix and fills the cells with ellipses (White or Black).
+        /// </summary>
         private void updateBoard()
         {
             grid.Children.Clear();
@@ -147,24 +164,6 @@ namespace Reversi
             return a ? Colors.Black : Colors.White;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
 }
-
-//private void Disk_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-//{
-//    Ellipse sent = (Ellipse)sender;
-//    //var isItHovered = Boolean.parseBoolean();
-//    if (e.NewValue.Equals(true))
-//    {
-//        sent.Stroke = System.Windows.Media.Brushes.DarkSlateGray;
-//    }
-//    else
-//    {
-//        sent.Stroke = System.Windows.Media.Brushes.Transparent;
-//    }
-//}

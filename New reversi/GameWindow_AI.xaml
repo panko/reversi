@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reversi"
         mc:Ignorable="d"
-        Title="GameWindow_AI" Height="450" Width="800" Background="#FF3B6439" Loaded="Window_Loaded">
+        Title="GameWindow_AI" Height="450" Width="800" Background="#FF3B6439">
     <Grid>
         <Grid x:Name="grid" Margin="255,40,25,40" Background="#FF008318" ShowGridLines="True">
             <Grid.RowDefinitions>

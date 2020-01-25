@@ -28,13 +28,19 @@ namespace Reversi
             listPoeple();
         }
 
-        
+        /// <summary>
+        /// Load the people from the database to a list.
+        /// </summary>
         private void LoadPeopleList()
         {
             list = SqliteDataAccess.LoadPeople();
             list = list.OrderByDescending(Person => Person.bestScore).ToList();
             
         }
+
+        /// <summary>
+        /// Fill up the leaderboard with the people in the database.
+        /// </summary>
         private void listPoeple()
         {
             int k = 0;

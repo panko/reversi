@@ -8,28 +8,19 @@ namespace Reversi
 {
     class GameEngine : GameEngineInterface
     {
-
         RuleEngine ruleBook;
         Board board;
+        Random random = new Random();
         
         public bool blackTurn = true;
         public int blackScore;
         public int whiteScore;
-        //OthelloLinqLayer.OthelloSaver a = new OthelloLinqLayer.OthelloSaver();
 
         public GameEngine()
         {
             ruleBook = new RuleEngine();
             board = new Board();
-           // board = a.getBoard("test.xml");
-            //blackTurn = a.getTurn("test.xml");
-
-        }
-
-        public void resetGame()
-        {
-            board.ResetBoard();
-            calcScore();
+            if ((random.Next(1, 2) / 2) == 0) blackTurn = !blackTurn;
         }
 
         public bool hasPossibleMove(bool black)
@@ -37,15 +28,14 @@ namespace Reversi
             return ruleBook.PossibleMoves(board, new Tile(black)).Count > 0;
         }
 
-
         public Board getBoard()
         {
             return board;
-        }
+        }        
 
-
-
-
+        /// <summary>
+        /// The AI going through all the possible moves in the current table, and decides which move is turning the most enemy tile. 
+        /// </summary>
         public void AI_move()
         {
             int bestscore_AI;
@@ -53,7 +43,7 @@ namespace Reversi
 
             bestscore_AI = calcScore_AI(board)[1];            
 
-            Tile tile = new Tile(false);
+            Tile tile = new Tile(blackTurn);
 
             List<int[]> possibleMoves = ruleBook.PossibleMoves(board, tile);
 
@@ -99,9 +89,9 @@ namespace Reversi
                 AI_board = null;
             }
 
-            PlaceTile(bestmove_AI[0], bestmove_AI[1]);    
+            if (PlaceTile(bestmove_AI[0], bestmove_AI[1])) { }
+            else Console.Error.WriteLine("nem léptem");
         }
-
 
         public bool PlaceTile(int x, int y)
         {
@@ -141,9 +131,6 @@ namespace Reversi
                 }
             }
             calcScore();
-
-            // a.save(board, blackTurn);
-            // Return the currect board.
             if (movementDone)
             {
                 blackTurn = !blackTurn;
@@ -152,6 +139,12 @@ namespace Reversi
             return false;
         }
 
+
+        /// <summary>
+        /// Each possible move in the AI_move method creates a new table.
+        /// </summary>
+        /// <param name="_board"></param>
+        /// <returns></returns>
         private Board makeBoard(Board _board)
         {
             Board newBoard = new Board();
@@ -180,7 +173,9 @@ namespace Reversi
             return newBoard;
         }
 
-
+        /// <summary>
+        /// Calculates the score of the current table.
+        /// </summary>
         private void calcScore()
         {
             blackScore = 0;
@@ -205,6 +200,11 @@ namespace Reversi
             }
         }
 
+        /// <summary>
+        /// Calculates the score of the given table. (Used in the AI_move method)
+        /// </summary>
+        /// <param name="_board"></param>
+        /// <returns></returns>
         private int[] calcScore_AI(Board _board)
         {
             blackScore = 0;

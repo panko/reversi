@@ -27,22 +27,37 @@ namespace Reversi
 
         public MainWindow()
         {
-            InitializeComponent();
-      
+            InitializeComponent();      
         }
-        
+
+        /// <summary>
+        /// Event handler for the button : "Against Computer".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vs_cmp_clicked(object sender, RoutedEventArgs e)
         {
             isAgainstAI = true;
             playBTN.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Event handler for the button : "Exit".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Exit_click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }     
+        
 
-
+        /// <summary>
+        /// Event handler for the button : "Player vs Player".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vs_hm_clicked(object sender, RoutedEventArgs e)
         {
             isAgainstAI = false;           
@@ -53,6 +68,12 @@ namespace Reversi
             playBTN.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Event handler for the button : "Play".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void playBTN_Click(object sender, RoutedEventArgs e)
         {            
             p1 = player1_box.Text;
@@ -70,44 +91,28 @@ namespace Reversi
                 if ((p1.Split(' ').Length > 1))
                 {
                     gv.setPlayer1(p1.Split(' ')[0], p1.Split(' ')[1]);
-                    //Person person1 = new Person();
-                    //person1.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person1.firstName = p1.Split(' ')[0];
-                    //person1.lastName = p1.Split(' ')[1];
-                    //SqliteDataAccess.SavePerson(person1);
                 }
                 else
                 {
                     gv.setPlayer1(p1.Split(' ')[0]," ");
-                    //Person person1 = new Person();
-                    //person1.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person1.firstName = p1.Split(' ')[0];
-                    //person1.lastName = " ";
-                    //SqliteDataAccess.SavePerson(person1);
-
                 }
                 if (p2.Split(' ').Length > 1)
                 {
                     gv.setPlayer2(p2.Split(' ')[0], p2.Split(' ')[1]);
-                    //Person person2 = new Person();
-                    //person2.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person2.firstName = p2.Split(' ')[0];
-                    //person2.lastName = p2.Split(' ')[1];
-                    //SqliteDataAccess.SavePerson(person2);
                 }
                 else
                 {
                     gv.setPlayer2(p2.Split(' ')[0], " ");
-                    //Person person2 = new Person();
-                    //person2.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person2.firstName = p2.Split(' ')[0];
-                    //person2.lastName = " ";
-                    //SqliteDataAccess.SavePerson(person2);
                 }
                 gv.Show();  
             }
-
         }
+
+        /// <summary>
+        /// Event handler for the button : "Leaderboard".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LeaderB(object sender, RoutedEventArgs e)
         {
             LeaderBoard LB = new LeaderBoard();
