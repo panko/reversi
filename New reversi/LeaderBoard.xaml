@@ -24,9 +24,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="name" Height="53" TextWrapping="Wrap" Text="Player's name" VerticalAlignment="Top" Width="198" FontSize="30" TextAlignment="Center"  Background="Green" Margin="33,0"/>
-        <TextBox x:Name="time" Height="53" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Width="198" Grid.Column="1" FontSize="30" TextAlignment="Center"  Background="Green" Margin="33,0"/>
-        <TextBox x:Name="score" Height="52" TextWrapping="Wrap" Text="Best Score" VerticalAlignment="Top" Width="198" Grid.Column="2" FontSize="30" TextAlignment="Center"  Background="Green" Margin="33,0"/>
+        <TextBox x:Name="name" Height="53" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center" FontSize="30" TextAlignment="Center"  Background="Green"/>
+        <TextBox x:Name="time" Height="53" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Grid.Column="1" FontSize="30" TextAlignment="Center"  Background="Green"/>
+        <TextBox x:Name="score" Height="52" TextWrapping="Wrap" Text="Best Score" VerticalAlignment="Top" Grid.Column="2" FontSize="30" TextAlignment="Center"  Background="Green"/>
 
 
     </Grid>

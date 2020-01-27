@@ -89,8 +89,7 @@ namespace Reversi
                 AI_board = null;
             }
 
-            if (PlaceTile(bestmove_AI[0], bestmove_AI[1])) { }
-            else Console.Error.WriteLine("nem léptem");
+            PlaceTile(bestmove_AI[0], bestmove_AI[1]);
         }
 
         public bool PlaceTile(int x, int y)

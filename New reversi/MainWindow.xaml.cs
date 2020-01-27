@@ -22,8 +22,8 @@ namespace Reversi
     public partial class MainWindow : Window
     {
         bool isAgainstAI = false;
-        String p1 = "";
-        String p2 = "";
+        string p1 = "";
+        string p2 = "";
 
         public MainWindow()
         {
@@ -38,6 +38,7 @@ namespace Reversi
         private void Vs_cmp_clicked(object sender, RoutedEventArgs e)
         {
             isAgainstAI = true;
+            HideInputPlayer();
             playBTN.Visibility = Visibility.Visible;
         }
 
@@ -81,31 +82,53 @@ namespace Reversi
 
             if (isAgainstAI)
             {
-                GameWindow_AI gv = new GameWindow_AI();
+                GameWindow gv = new GameWindow(true);
+                HideInputPlayer();
                 gv.Show();
 
             }
-            else if ((p1 != "") &&( p2 != ""))
-            {
-                GameWindow gv = new GameWindow();
-                if ((p1.Split(' ').Length > 1))
+            else {
+                if ((p1 != "") && (p2 != ""))
                 {
-                    gv.setPlayer1(p1.Split(' ')[0], p1.Split(' ')[1]);
+                    HideInputPlayer();
+                    GameWindow gv = new GameWindow(false);
+                    if ((p1.Split(' ').Length > 1))
+                    {
+                        gv.p1_firstname = p1.Split(' ')[0];
+                        gv.p1_lastname = p1.Split(' ')[1];
+                    }
+                    else
+                    {
+                        gv.p1_firstname = p1;
+                        gv.p1_lastname = " ";
+                    }
+                    if (p2.Split(' ').Length > 1)
+                    {
+                        gv.p2_firstname = p2.Split(' ')[0];
+                        gv.p2_lastname = p2.Split(' ')[1];
+                    }
+                    else
+                    {
+                        gv.p2_firstname = p2;
+                        gv.p2_lastname = " ";
+                    }
+                    gv.Show();
                 }
-                else
-                {
-                    gv.setPlayer1(p1.Split(' ')[0]," ");
-                }
-                if (p2.Split(' ').Length > 1)
-                {
-                    gv.setPlayer2(p2.Split(' ')[0], p2.Split(' ')[1]);
-                }
-                else
-                {
-                    gv.setPlayer2(p2.Split(' ')[0], " ");
-                }
-                gv.Show();  
+                else MessageBox.Show("You must type a name!");
             }
+        }
+
+
+        /// <summary>
+        /// Hides the textboxes when user clicked elsewhere from tab "Human vs human".
+        /// </summary>
+        private void HideInputPlayer()
+        {
+            player1.Visibility = Visibility.Hidden;
+            player1_box.Visibility = Visibility.Hidden;
+            player2_box.Visibility = Visibility.Hidden;
+            player2.Visibility = Visibility.Hidden;
+            playBTN.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -115,6 +138,7 @@ namespace Reversi
         /// <param name="e"></param>
         private void LeaderB(object sender, RoutedEventArgs e)
         {
+            HideInputPlayer();
             LeaderBoard LB = new LeaderBoard();
             LB.Show();
         }
