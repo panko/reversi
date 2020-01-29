@@ -13,6 +13,11 @@ namespace Reversi
     public class SqliteDataAccess
     {
 
+
+        /// <summary>
+        /// Returns a list of People whose are in the database.
+        /// </summary>
+        /// <returns></returns>
         public static List<Person> LoadPeople()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -22,6 +27,11 @@ namespace Reversi
             }
         }
 
+
+        /// <summary>
+        /// Saving the Person to the database.
+        /// </summary>
+        /// <param name="person"></param>
         public static void SavePerson(Person person)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

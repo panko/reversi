@@ -15,15 +15,6 @@ namespace Reversi
 
         public int bestScore { get; set; }
 
-
-        //public Person(int id, string fn, string ln, string time, int best)
-        //{
-        //    this.ID = id;
-        //    this.firstName = fn;
-        //    this.lastName = ln;
-        //    this.time = time;
-        //    this.bestScore = best;
-        //}
         public string FullName
         {
             get{

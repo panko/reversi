@@ -16,8 +16,8 @@
         <TextBox  x:Name="player1_box" HorizontalAlignment="Left" Height="29" Margin="288,54,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="237" Visibility="Hidden"/>
         <TextBox  x:Name="player2_box"  HorizontalAlignment="Left" Height="29" Margin="288,129,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="237" Visibility="Hidden"/>
         <Button x:Name="playBTN" Content="PLAY" HorizontalAlignment="Left" Margin="36,351,0,0" VerticalAlignment="Top" Width="120" Height="43" Click="playBTN_Click" Visibility="Hidden" />
-        <TextBlock x:Name="player2"  Margin="288,98,-263,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Visibility="Hidden" Text="Első játékos: "/>
-        <TextBlock x:Name="player1"  Margin="288,18,-263,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Visibility="Hidden" Text="Második játékos: "/>
+        <TextBlock x:Name="player2"  Margin="288,98,-263,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Visibility="Hidden" Text="Second Player: "/>
+        <TextBlock x:Name="player1"  Margin="288,18,-263,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Visibility="Hidden" Text="First Player: "/>
 
 
 

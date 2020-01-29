@@ -22,27 +22,43 @@ namespace Reversi
     public partial class MainWindow : Window
     {
         bool isAgainstAI = false;
-        String p1 = "";
-        String p2 = "";
+        string p1 = "";
+        string p2 = "";
 
         public MainWindow()
         {
-            InitializeComponent();
-      
+            InitializeComponent();      
         }
-        
+
+        /// <summary>
+        /// Event handler for the button : "Against Computer".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vs_cmp_clicked(object sender, RoutedEventArgs e)
         {
             isAgainstAI = true;
+            HideInputPlayer();
             playBTN.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Event handler for the button : "Exit".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Exit_click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }     
+        
 
-
+        /// <summary>
+        /// Event handler for the button : "Player vs Player".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vs_hm_clicked(object sender, RoutedEventArgs e)
         {
             isAgainstAI = false;           
@@ -53,6 +69,12 @@ namespace Reversi
             playBTN.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// Event handler for the button : "Play".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void playBTN_Click(object sender, RoutedEventArgs e)
         {            
             p1 = player1_box.Text;
@@ -60,56 +82,63 @@ namespace Reversi
 
             if (isAgainstAI)
             {
-                GameWindow_AI gv = new GameWindow_AI();
+                GameWindow gv = new GameWindow(true);
+                HideInputPlayer();
                 gv.Show();
 
             }
-            else if ((p1 != "") &&( p2 != ""))
-            {
-                GameWindow gv = new GameWindow();
-                if ((p1.Split(' ').Length > 1))
+            else {
+                if ((p1 != "") && (p2 != ""))
                 {
-                    gv.setPlayer1(p1.Split(' ')[0], p1.Split(' ')[1]);
-                    //Person person1 = new Person();
-                    //person1.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person1.firstName = p1.Split(' ')[0];
-                    //person1.lastName = p1.Split(' ')[1];
-                    //SqliteDataAccess.SavePerson(person1);
+                    HideInputPlayer();
+                    GameWindow gv = new GameWindow(false);
+                    if ((p1.Split(' ').Length > 1))
+                    {
+                        gv.p1_firstname = p1.Split(' ')[0];
+                        gv.p1_lastname = p1.Split(' ')[1];
+                    }
+                    else
+                    {
+                        gv.p1_firstname = p1;
+                        gv.p1_lastname = " ";
+                    }
+                    if (p2.Split(' ').Length > 1)
+                    {
+                        gv.p2_firstname = p2.Split(' ')[0];
+                        gv.p2_lastname = p2.Split(' ')[1];
+                    }
+                    else
+                    {
+                        gv.p2_firstname = p2;
+                        gv.p2_lastname = " ";
+                    }
+                    gv.Show();
                 }
-                else
-                {
-                    gv.setPlayer1(p1.Split(' ')[0]," ");
-                    //Person person1 = new Person();
-                    //person1.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person1.firstName = p1.Split(' ')[0];
-                    //person1.lastName = " ";
-                    //SqliteDataAccess.SavePerson(person1);
-
-                }
-                if (p2.Split(' ').Length > 1)
-                {
-                    gv.setPlayer2(p2.Split(' ')[0], p2.Split(' ')[1]);
-                    //Person person2 = new Person();
-                    //person2.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person2.firstName = p2.Split(' ')[0];
-                    //person2.lastName = p2.Split(' ')[1];
-                    //SqliteDataAccess.SavePerson(person2);
-                }
-                else
-                {
-                    gv.setPlayer2(p2.Split(' ')[0], " ");
-                    //Person person2 = new Person();
-                    //person2.ID = SqliteDataAccess.LoadPeople().Count + 1;
-                    //person2.firstName = p2.Split(' ')[0];
-                    //person2.lastName = " ";
-                    //SqliteDataAccess.SavePerson(person2);
-                }
-                gv.Show();  
+                else MessageBox.Show("You must type a name!");
             }
-
         }
+
+
+        /// <summary>
+        /// Hides the textboxes when user clicked elsewhere from tab "Human vs human".
+        /// </summary>
+        private void HideInputPlayer()
+        {
+            player1.Visibility = Visibility.Hidden;
+            player1_box.Visibility = Visibility.Hidden;
+            player2_box.Visibility = Visibility.Hidden;
+            player2.Visibility = Visibility.Hidden;
+            playBTN.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Event handler for the button : "Leaderboard".
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LeaderB(object sender, RoutedEventArgs e)
         {
+            HideInputPlayer();
             LeaderBoard LB = new LeaderBoard();
             LB.Show();
         }

@@ -67,19 +67,12 @@
     <Compile Include="Board.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameEngineInterface.cs" />
-    <Compile Include="GameWindow_AI.xaml.cs">
-      <DependentUpon>GameWindow_AI.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Person.cs" />
     <Compile Include="RuleEngine.cs" />
     <Compile Include="RuleEngineInterface.cs" />
     <Compile Include="SqliteDataAccess.cs" />
     <Compile Include="Tile.cs" />
     <Page Include="GameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GameWindow_AI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
