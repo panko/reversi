@@ -72,5 +72,11 @@ namespace Reversi.Views
                 mw.DataContext = new GameView(mw);
             }
         }
+
+        private void leaderboard_Click(object sender, RoutedEventArgs e)
+        {
+            mw.DataContext = new LeaderboardView(mw);
+
+        }
     }
 }
