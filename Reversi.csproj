@@ -14,8 +14,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\MenuViewOld.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="mainmenu_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\MenuViewOld.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="mainmenu_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LeaderBoardDB.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
