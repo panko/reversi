@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reversi"
         mc:Ignorable="d"
-        Title="LeaderBoard" Height="450" Width="800">
+        Title="LeaderBoard"
+        Height="480"
+        Width="800"
+        Background="#FF3B6439"
+        ResizeMode="NoResize">
 
-    <Grid x:Name="grid" Margin="0,0,0,0" Background="DarkSeaGreen" ShowGridLines="True">
+    <Grid x:Name="grid" Background="DarkSeaGreen" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -24,10 +28,31 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="name" Height="53" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center" FontSize="30" TextAlignment="Center"  Background="Green"/>
-        <TextBox x:Name="time" Height="53" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Grid.Column="1" FontSize="30" TextAlignment="Center"  Background="Green"/>
-        <TextBox x:Name="score" Height="52" TextWrapping="Wrap" Text="Best Score" VerticalAlignment="Top" Grid.Column="2" FontSize="30" TextAlignment="Center"  Background="Green"/>
-
-
+        <TextBox x:Name="name"
+                 Height="60"
+                 TextWrapping="Wrap"
+                 Text="Name"
+                 VerticalAlignment="Center"
+                 FontSize="30"
+                 TextAlignment="Center"
+                 Background="#FF3B6439"/>
+        <TextBox x:Name="time"
+                 Height="60"
+                 TextWrapping="Wrap"
+                 Text="Time"
+                 VerticalAlignment="Top"
+                 Grid.Column="1"
+                 FontSize="30"
+                 TextAlignment="Center"
+                 Background="#FF3B6439"/>
+        <TextBox x:Name="score"
+                 Height="60"
+                 TextWrapping="Wrap"
+                 Text="Best Score"
+                 VerticalAlignment="Top"
+                 Grid.Column="2"
+                 FontSize="30"
+                 TextAlignment="Center"
+                 Background="#FF3B6439"/>
     </Grid>
 </Window>
