@@ -43,8 +43,6 @@ namespace Reversi
             if (gameEngine.blackTurn == false && this.isAgainstAI)
                 gameEngine.AI_move();
             updateBoard();
-            text_black.Text = "Black Ellapsed time";
-            text_white.Text = "White Ellapsed time";
             tB.Interval = TimeSpan.FromMilliseconds(1);
             tW.Interval = TimeSpan.FromMilliseconds(1);
             tB.Tick += timer_Tick_B;

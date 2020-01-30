@@ -7,36 +7,81 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
-        Title="GameWindow" Height="450" Width="800" Background="#FF3B6439">
+        Title="GameWindow"
+        Height="480"
+        Width="800"
+        Background="#FF3B6439"
+        ResizeMode="NoResize">
     <Grid>
-        <Grid x:Name="grid" Margin="255,40,25,40" Background="#FF008318" ShowGridLines="True">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <TextBlock x:Name="turn" HorizontalAlignment="Left" Margin="25,40,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock x:Name="score" HorizontalAlignment="Left" Margin="25,97,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock x:Name="timer_B" HorizontalAlignment="Left" Margin="109,216,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock x:Name="text_black" Margin="25,187,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock x:Name="text_white"  Margin="25,276,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        <TextBlock x:Name="timer_W" HorizontalAlignment="Left" Margin="109,305,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        
+        <DockPanel>
+            <StackPanel Margin="20">
+                <TextBlock x:Name="turn"
+                           HorizontalAlignment="Left"
+                           TextWrapping="Wrap"
+                           Text="TextBlock"
+                           FontSize="25"
+                           FontWeight="Bold"/>
+                <TextBlock x:Name="score"
+                           HorizontalAlignment="Left"
+                           TextWrapping="Wrap"
+                           Text="TextBlock"
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                <DockPanel>
+                    <TextBlock x:Name="text_black"
+                           TextWrapping="Wrap"
+                           Text="Black Ellapsed Time:  "
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                    <TextBlock x:Name="timer_B"
+                           HorizontalAlignment="Left"
+                           TextWrapping="Wrap"
+                           Text="TextBlock"
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="text_white"
+                           TextWrapping="Wrap"
+                           Text="White Ellapsed Time:  "
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                    <TextBlock x:Name="timer_W"
+                           HorizontalAlignment="Left"
+                           TextWrapping="Wrap"
+                           Text="TextBlock"
+                           VerticalAlignment="Top"
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                </DockPanel>
+            </StackPanel>
+            <Grid x:Name="grid"
+                  Width="400"
+                  Height="400"
+                  Margin="10"
+                  Background="#FF008318"
+                  ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
