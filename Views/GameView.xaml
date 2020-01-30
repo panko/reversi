@@ -10,7 +10,7 @@
         Background="#FF3B6439">
     <Grid>
         <DockPanel>
-            <StackPanel Margin="20">
+            <StackPanel Margin="15">
                 <TextBlock x:Name="turn"
                            HorizontalAlignment="Left"
                            TextWrapping="Wrap"
@@ -19,19 +19,20 @@
                            FontWeight="Bold"/>
                 <TextBlock x:Name="score"
                            HorizontalAlignment="Left"
+                           Width="125"
                            TextWrapping="Wrap"
                            Text="TextBlock"
                            FontSize="16"
                            FontWeight="Bold"/>
                 <DockPanel>
                     <TextBlock x:Name="text_black"
-                           TextWrapping="Wrap"
                            Text="Black Ellapsed Time:  "
                            FontSize="16"
                            FontWeight="Bold"/>
                     <TextBlock x:Name="timer_B"
-                           HorizontalAlignment="Left"
-                           TextWrapping="Wrap"
+                           HorizontalAlignment="Right"
+                           Margin="20,0,0,0"
+                           Width="125"
                            Text="TextBlock"
                            FontSize="16"
                            FontWeight="Bold"/>
@@ -43,10 +44,11 @@
                            FontSize="16"
                            FontWeight="Bold"/>
                     <TextBlock x:Name="timer_W"
-                           HorizontalAlignment="Left"
+                           HorizontalAlignment="Right"
+                           Margin="20,0,0,0"
+                           Width="125"
                            TextWrapping="Wrap"
                            Text="TextBlock"
-                           VerticalAlignment="Top"
                            FontSize="16"
                            FontWeight="Bold"/>
                 </DockPanel>
