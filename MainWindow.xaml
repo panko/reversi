@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:Reversi.ViewModels"
         xmlns:views="clr-namespace:Reversi.Views"
         mc:Ignorable="d"
-        Title="Reversi" Width="800" Height="600">
+        Title="Reversi" Width="800" Height="500" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Name="menuViewTemplate" DataType="{x:Type viewmodels:MenuViewModel}">
             <views:MenuView DataContext="{Binding}"/>

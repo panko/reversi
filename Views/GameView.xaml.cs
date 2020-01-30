@@ -53,8 +53,6 @@ namespace Reversi.Views
             if (gvm.blackTurn == false && this.isAgainstAI)
                 gvm.AI_move();
             updateBoard();
-            text_black.Text = "Black Ellapsed time";
-            text_white.Text = "White Ellapsed time";
             tB.Interval = TimeSpan.FromMilliseconds(1);
             tW.Interval = TimeSpan.FromMilliseconds(1);
             tB.Tick += timer_Tick_B;
