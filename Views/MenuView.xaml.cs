@@ -32,37 +32,50 @@ namespace Reversi.Views
 
         private void vspc_Checked(object sender, RoutedEventArgs e)
         {
-            play.IsEnabled = true;
-        }
-        private void vspc_Unchecked(object sender, RoutedEventArgs e)
-        {
-            play.IsEnabled = false;
+            if (!String.IsNullOrWhiteSpace(tb1.Text))
+            {
+                play.IsEnabled = true;
+            }
+            sp1.Visibility = Visibility.Visible;
+
         }
 
         private void vshuman_Checked(object sender, RoutedEventArgs e)
         {
             sp1.Visibility = Visibility.Visible;
             sp2.Visibility = Visibility.Visible;
+            play.IsEnabled = false;
         }
 
         private void vshuman_Unchecked(object sender, RoutedEventArgs e)
         {
-            sp1.Visibility = Visibility.Hidden;
             sp2.Visibility = Visibility.Hidden;
-            tb1.Clear();
             tb2.Clear();
         }
 
         private void tb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(tb1.Text) || String.IsNullOrWhiteSpace(tb2.Text))
+            if (vshuman.IsChecked.Value)
             {
-                play.IsEnabled = false;
+                if (String.IsNullOrWhiteSpace(tb1.Text) || String.IsNullOrWhiteSpace(tb2.Text))
+                {
+                    play.IsEnabled = false;
+                }
+                else
+                {
+                    play.IsEnabled = true;
+                }
+            } else {
+                if (String.IsNullOrWhiteSpace(tb1.Text))
+                {
+                    play.IsEnabled = false;
+                }
+                else
+                {
+                    play.IsEnabled = true;
+                }
             }
-            else
-            {
-                play.IsEnabled = true;
-            }
+
         }
 
         private void play_Click(object sender, RoutedEventArgs e)

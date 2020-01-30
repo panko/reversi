@@ -1,4 +1,5 @@
-﻿using Reversi.ViewModels;
+﻿using Reversi.Models;
+using Reversi.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Reversi.Views
     public partial class LeaderboardView : UserControl
     {
         MainWindow mw;
-        LeaderboardViewModel lvm = new LeaderboardViewModel();
+
         List<Person> list = new List<Person>();
         public LeaderboardView(MainWindow mw)
         {
@@ -34,7 +35,7 @@ namespace Reversi.Views
         
         private void LoadPeopleList()
         {
-            list = SqliteDataAccess.LoadPeople();
+            list = LeaderboardViewModel.LoadPeople();
             list = list.OrderByDescending(Person => Person.bestScore).ToList();
             
         }
