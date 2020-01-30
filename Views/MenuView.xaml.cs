@@ -82,7 +82,10 @@ namespace Reversi.Views
         {
             if (vspc.IsChecked.Value)
             {
-                mw.DataContext = new GameView(mw);
+                mw.DataContext = new GameView(mw, true);
+            } else
+            {
+                mw.DataContext = new GameView(mw, false, tb1.Text, tb2.Text);
             }
         }
 

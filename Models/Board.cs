@@ -1,34 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Reversi.Models
+namespace Reversi
 {
-    public class Board
+   public  class Board
     {
-        public enum Disk
-        {
-            Empty,
-            Black,
-            White
-        }
-
-        public List<List<Disk>> Disks { get; set; } = new List<List<Disk>>();
+        public Tile[,] matrix = new Tile[8, 8];
 
         public Board()
         {
-            for (int i = 0; i < 8; ++i)
-            {
-                Disks.Add(new List<Disk>());
-                for (int j = 0; j < 8; ++j)
-                {
-                    Disks[i].Add(Disk.Empty);
-                }
-            }
-            Disks[3][3] = Disk.White;
-            Disks[4][4] = Disk.White;
-            Disks[4][3] = Disk.Black;
-            Disks[3][4] = Disk.Black;
+            ResetBoard();
+        }
+
+        public void ResetBoard()
+        {
+            matrix = new Tile[8, 8];
+            matrix[3, 3] = new Tile(true);
+            matrix[4, 3] = new Tile(false);
+            matrix[3, 4] = new Tile(false);
+            matrix[4, 4] = new Tile(true);
         }
     }
 }
