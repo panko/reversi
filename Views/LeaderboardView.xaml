@@ -55,6 +55,7 @@
         <Button Content="Back" 
                 Grid.Column="2" 
                 Grid.Row="7" 
-                Click="Back_Click"/>
+                Click="Back_Click"
+                Height="60"/>
     </Grid>
 </UserControl>
