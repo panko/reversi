@@ -23,3 +23,7 @@ https://en.wikipedia.org/wiki/Reversi
 * Mindenkori eredménylista (nyert – vesztett)
 * Tárolja le az eredményt
 * Adatok tárolása: Json, XML vagy adatbázis
+## Képernyõfotók
+![menu](https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/83654883_529009321297044_7812701483161354240_n.jpg?_nc_cat=102&_nc_sid=b96e70&_nc_ohc=QbVQ6uPlnUQAX-4yeqO&_nc_ht=scontent-vie1-1.xx&oh=c644992be70036eccd3cf1bdf323fff9&oe=5EFE9D40)
+![game](https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/83749712_308117873495088_4598269481192521728_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=poGzO8ypS7IAX_AW7cD&_nc_ht=scontent-vie1-1.xx&oh=c135e78c1dcabad3e2abcd07cbbba307&oe=5EFF023B)
+![leaderboard](https://scontent-vie1-1.xx.fbcdn.net/v/t1.15752-9/83553740_2489030684748090_308605649464328192_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_ohc=_aFLn8d6b_UAX8pKcLQ&_nc_ht=scontent-vie1-1.xx&oh=fd03b9d276ae859ac0ec912bfbdee2d9&oe=5EFC67D3)
