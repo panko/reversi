@@ -1,7 +1,6 @@
 # Fonákolós játék
-
-.NET -es grafikus (WPF keretrendszerben írt) játék elkészítése.
-A játék leírása
+A "Bevezetés a Microsoft .NET 3.5 framework és Windows Communication Foundation-be" nevu tárgy gyakorlati jegyéhez szükséges, .NET -es grafikus (WPF keretrendszerben írt) játék elkészítése.
+## A játék bemutatása
 
 https://hu.wikipedia.org/wiki/Fon%C3%A1kol%C3%B3s
 
